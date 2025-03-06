@@ -1,9 +1,9 @@
-const express = require('express');
-const router = express.Router();
-const { verifyAdmin } = require('../middleware/auth');
+import { Router } from "express";
+import { addCourse, getCourses } from "../controllers/adminController.js";
 
-router.post('/signup', (req, res) => { /* Admin Signup Logic */ });
-router.post('/login', (req, res) => { /* Admin Login Logic */ });
-router.post('/courses', verifyAdmin, (req, res) => { /* Create Course */ });
+const router = Router();
 
-module.exports = router;
+router.post("/courses", addCourse);
+router.get("/courses", getCourses);
+
+export default router;
