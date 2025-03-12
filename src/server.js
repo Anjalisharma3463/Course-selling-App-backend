@@ -26,7 +26,7 @@ app.use("/uploads", express.static("uploads"));
 app.use("/api/admin", adminRoutes);
 app.use("/api/user", userRoutes);
 
-const PORT = 4000; // Change to any available port
+const PORT = 4000; 
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
 
  
