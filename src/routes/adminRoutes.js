@@ -1,9 +1,13 @@
-import { Router } from "express";
-import { addCourse, getCourses } from "../controllers/adminController.js";
+import express from "express";
+import { adminSignup, adminLogin, createCourse, getCourses } from "../controllers/adminController.js";
+import authMiddleware from "../middleware/auth.js";
+import upload from "../middleware/upload.js";
 
-const router = Router();
+const router = express.Router();
 
-router.post("/courses", addCourse);
+router.post("/signup", adminSignup);
+router.post("/login", adminLogin);
+router.post("/courses", authMiddleware, upload.single("image"), createCourse);
 router.get("/courses", getCourses);
 
-export default router;
+export default router;  
