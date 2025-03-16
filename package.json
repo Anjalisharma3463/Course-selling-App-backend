@@ -8,7 +8,12 @@
     "start": "node src/server.js",
     "dev": "nodemon src/server.js"
   },
-  "keywords": ["courses", "education", "express", "mongodb"],
+  "keywords": [
+    "courses",
+    "education",
+    "express",
+    "mongodb"
+  ],
   "author": "Your Name",
   "license": "ISC",
   "dependencies": {
