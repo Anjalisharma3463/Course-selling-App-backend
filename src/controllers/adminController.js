@@ -21,7 +21,7 @@ export async function createCourse(req, res) {
 
     const imageUrl = `/uploads/${req.file.filename}`;
 
-    // ✅ Create new course
+   
     const newCourse = new Course({
       title,
       description,
@@ -33,8 +33,7 @@ export async function createCourse(req, res) {
     await newCourse.save();
 
     console.log("New Course Data:", newCourse);
-
-    // ✅ **Update the admin's `createdCourses` array**
+ 
     await User.findByIdAndUpdate(req.user.id, {
       $push: { createdCourses: newCourse._id },
     });

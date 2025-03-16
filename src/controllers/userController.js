@@ -31,7 +31,7 @@ export const registerUser = async (req, res) => {
     );
 
     res.status(201).json({
-      message: "✅ Registration successful",
+      message: "  Registration successful",
       user: newUser , 
     });
 
@@ -62,7 +62,7 @@ export const loginUser = async (req, res) => {
     
     res.json({ token, role: user.role, username: user.username });
   } catch (error) {
-    res.status(500).json({ message: "❌ Login failed", error });
+    res.status(500).json({ message: "  Login failed", error });
   }
 };
  
@@ -71,11 +71,11 @@ export const loginUser = async (req, res) => {
  export const getPurchasedCourses = async (req, res) => {
   try {
     const user = await User.findById(req.user.id).populate("purchasedCourses");
-    if (!user) return res.status(404).json({ message: "❌ User not found" });
+    if (!user) return res.status(404).json({ message: "  User not found" });
 
     res.json({ purchasedCourses: user.purchasedCourses });
   } catch (error) {
-    res.status(500).json({ message: "❌ Error fetching purchased courses", error });
+    res.status(500).json({ message: "  Error fetching purchased courses", error });
   }
 };
  
@@ -83,13 +83,13 @@ export const loginUser = async (req, res) => {
 export const FetchUserDetails = async (req, res) => {
   try {
     const user = await User.findById(req.params.id).populate("purchasedCourses");
-    if (!user) return res.status(404).json({ message: "❌ User not found" });
+    if (!user) return res.status(404).json({ message: "  User not found" });
     console.log("user datils in baceknd:-  ", user);
 
     res.status(200).json(user);
   } catch (error) {
     console.error("Error fetching user:", error);
-    res.status(500).json({ message: "❌ Server error" });
+    res.status(500).json({ message: "  Server error" });
   }
 };
 
@@ -102,28 +102,28 @@ export const purchaseCourse = async (req, res) => {
     console.log("Purchasing Course - User:", userId, "Course:", courseId);
 
     if (!courseId) {
-      return res.status(400).json({ message: "❌ Course ID is required" });
+      return res.status(400).json({ message: "  Course ID is required" });
     }
 
     // Find user and course
     const user = await User.findById(userId);
     const course = await Course.findById(courseId);
 
-    if (!user) return res.status(404).json({ message: "❌ User not found" });
-    if (!course) return res.status(404).json({ message: "❌ Course not found" });
+    if (!user) return res.status(404).json({ message: "  User not found" });
+    if (!course) return res.status(404).json({ message: "  Course not found" });
 
     // Check if course is already purchased
     if (user.purchasedCourses.includes(courseId)) {
-      return res.status(400).json({ message: "❌ Course already purchased" });
+      return res.status(400).json({ message: "  Course already purchased" });
     }
 
     // Add course to user's purchased list
     user.purchasedCourses.push(courseId);
     await user.save();
 
-    res.status(200).json({ message: "✅ Course purchased successfully", purchasedCourses: user.purchasedCourses });
+    res.status(200).json({ message: "  Course purchased successfully", purchasedCourses: user.purchasedCourses });
   } catch (error) {
     console.error("Error purchasing course:", error);
-    res.status(500).json({ message: "❌ Error purchasing course", error });
+    res.status(500).json({ message: "  Error purchasing course", error });
   }
 };
