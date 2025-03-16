@@ -5,17 +5,13 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "nodemon src/server.js"
+    "start": "node src/server.js",  
+    "dev": "nodemon src/server.js",
+    "build": "npm install"
   },
-  "keywords": [
-    "courses",
-    "education",
-    "express",
-    "mongodb"
-  ],
-  "author": "Your Name",
-  "license": "ISC",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
