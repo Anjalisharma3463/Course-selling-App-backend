@@ -49,5 +49,17 @@ export async function createCourse(req, res) {
 
 export async function getCourses(req, res) {
   const courses = await Course.find();
+  console.log("req.user", req.user );
   res.json(courses);
 }
+
+export const GetAdminCreatedCourses = async (req, res) => {
+  console.log("Decoded User Data:", req.user);  
+  if (!req.user) {
+    return res.status(401).json({ message: "User not found in request object" });
+  }
+
+   const courses = await Course.find({ createdBy: req.user.id });
+  res.json(courses);
+};
+
