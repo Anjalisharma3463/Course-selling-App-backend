@@ -1,5 +1,5 @@
 import express from "express";
-import { FetchUserDetails,registerUser, loginUser  } from "../controllers/userController.js";
+import {  registerUser, loginUser  } from "../controllers/userController.js";
 import {   createCourse, getCourses } from "../controllers/adminController.js";
 import authMiddleware from "../middleware/auth.js";
 import upload from "../middleware/upload.js";
@@ -12,10 +12,7 @@ router.post("/courses", authMiddleware, upload.single("image"), createCourse);
 router.get("/courses" , getCourses);
 // router.get("/:id" , FetchUserDetails); 
 
-router.get("/yourcreatedcourses", (req, res, next) => {
-    console.log("Middleware Debugging - req.user:", req.user);
-    next();
-  }, authMiddleware, GetAdminCreatedCourses);
+router.get("/yourcreatedcourses",  authMiddleware, GetAdminCreatedCourses);
   
 export default router;  
  

@@ -5,9 +5,7 @@ import bcrypt from "bcryptjs";
 import User from "../models/User.js";
 
 export async function createCourse(req, res) {
-  try {
-    console.log("Request User:", req.user);
-    console.log("User ID:", req.user.id);
+  try { 
 
     if (!req.user || req.user.role !== "admin") {
       return res.status(401).json({ message: "❌ Unauthorized: Only admins can create courses" });
@@ -32,8 +30,7 @@ export async function createCourse(req, res) {
 
     await newCourse.save();
 
-    console.log("New Course Data:", newCourse);
- 
+  
     await User.findByIdAndUpdate(req.user.id, {
       $push: { createdCourses: newCourse._id },
     });
@@ -49,17 +46,21 @@ export async function createCourse(req, res) {
 
 export async function getCourses(req, res) {
   const courses = await Course.find();
-  console.log("req.user", req.user );
-  res.json(courses);
+   res.json(courses);
 }
 
 export const GetAdminCreatedCourses = async (req, res) => {
-  console.log("Decoded User Data:", req.user);  
+ 
   if (!req.user) {
     return res.status(401).json({ message: "User not found in request object" });
   }
 
-   const courses = await Course.find({ createdBy: req.user.id });
-  res.json(courses);
-};
+  try {
+    const courses = await Course.find({ createdBy: req.user.id });
 
+    return res.json({ adminCourses: courses });  
+  } catch (error) {
+    console.error("Error fetching admin courses:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};

@@ -8,7 +8,7 @@ const { sign } = jwt;
 export const registerUser = async (req, res) => {
   try {
     const { username, email, password , role } = req.body;
-    console.log("req.body in signup in backend",req.body);
+    
   
     if (!username || !email || !password  ) {
       return res.status(400).json({ message: "❌ All fields are required." });
@@ -43,9 +43,7 @@ export const registerUser = async (req, res) => {
 export const loginUser = async (req, res) => {
   try {
     const { username, password , role} = req.body;
-  console.log("req.body in backend",req.body);
-  
-    const user = await User.findOne({ username });
+     const user = await User.findOne({ username });
     if (!user) return res.status(400).json({ message: "❌ User not found" });
 
      const isMatch = await compare(password, user.password);
@@ -81,9 +79,7 @@ export const loginUser = async (req, res) => {
  
 
 export const FetchUserDetails = async (req, res) => {
-  console.log("Incoming Request Params:", req.params);  // 🔥 Debug Here
-  console.log("Incoming Request URL:", req.originalUrl); // 🔥 Debug Here
-
+ 
   if (!req.params.id) {
     return res.status(400).json({ message: "❌ Missing user ID" });
   }
@@ -92,9 +88,7 @@ export const FetchUserDetails = async (req, res) => {
     const user = await User.findById(req.params.id).populate("purchasedCourses");
 
     if (!user) return res.status(404).json({ message: "❌ User not found" });
-
-    console.log("User details in backend:", user);
-
+ 
     res.status(200).json(user);
   } catch (error) {
     console.error("Error fetching user:", error);
@@ -109,8 +103,7 @@ export const purchaseCourse = async (req, res) => {
     const userId = req.user.id; // Get userId from token
     const { courseId } = req.params; // Get courseId from URL params
 
-    console.log("Purchasing Course - User:", userId, "Course:", courseId);
-
+ 
     if (!courseId) {
       return res.status(400).json({ message: "  Course ID is required" });
     }

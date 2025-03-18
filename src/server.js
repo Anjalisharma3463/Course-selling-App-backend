@@ -16,12 +16,15 @@ app.use(express.json());
 
 app.use(json());
 
-app.use(cors())
-// app.use(cors({ origin:process.env.FRONTEND_URL, credentials: true }));
+// app.use(cors())
+app.use(cors({ origin:process.env.FRONTEND_URL, credentials: true }));
  
-app.use("/uploads", express.static(path.join("uploads")));
+// app.use("/uploads", express.static(path.join("uploads")));
     
-  
+const __dirname = path.resolve();
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+
+
 app.use("/api/admin", adminRoutes);
 app.use("/api/user", userRoutes);
  

@@ -9,9 +9,7 @@ const authMiddleware = (req, res, next) => {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    
-    console.log("Decoded JWT:", decoded); // DEBUG: Check what’s inside decoded token
-
+     
     if (!decoded || !decoded.id) {
       return res.status(403).json({ message: "❌ Unauthorized: Admin access required" });
     }
