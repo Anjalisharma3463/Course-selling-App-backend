@@ -17,8 +17,14 @@ app.use(express.json());
 app.use(json());
 
 // app.use(cors())
-app.use(cors({ origin:process.env.FRONTEND_URL, credentials: true }));
- 
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "https://course-selling-app-frontend-eta.vercel.app"); // No trailing slash
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+    res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+    res.setHeader("Access-Control-Allow-Credentials", "true");
+    next();
+});
+
 // app.use("/uploads", express.static(path.join("uploads")));
     
 const __dirname = path.resolve();
