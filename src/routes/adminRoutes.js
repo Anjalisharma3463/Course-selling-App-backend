@@ -12,7 +12,7 @@ router.post("/courses", authMiddleware, upload.single("image"), createCourse);
 router.get("/courses" , getCourses);
 // router.get("/:id" , FetchUserDetails); 
 
-router.get("/yourcourses", (req, res, next) => {
+router.get("/yourcreatedcourses", (req, res, next) => {
     console.log("Middleware Debugging - req.user:", req.user);
     next();
   }, authMiddleware, GetAdminCreatedCourses);
